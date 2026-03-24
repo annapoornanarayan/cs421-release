@@ -33,42 +33,59 @@ tag3 = 24929
 --- ### mytake
 
 -- don't forget to put the type declaration or you will lose points!
-mytake = undefined
+mytake n _ | (n<0) = []
+mytake _ [] = []
+mytake n (x:xs) = x: mytake (n-1) xs
 
 --- ### mydrop
 
 -- don't forget to put the type declaration or you will lose points!
-mydrop = undefined
+mydrop n z | (n<=0) = z
+mydrop _ [] = []
+mydrop n (x:xs) = mydrop (n-1) xs
 
 --- ### rev
 
 -- don't forget to put the type declaration or you will lose points!
-rev = undefined
+rev xs = revHelper xs []
+    where
+        revHelper [] acc = acc
+        revHelper (x:xs) acc = revHelper xs (x:acc)
 
 --- ### app
 
 -- don't forget to put the type declaration or you will lose points!
-app = undefined
+app x [] = x
+app [] x = x
+app (x:xs) (ys) = x: app xs ys
+
 
 --- ### inclist
 
 -- don't forget to put the type declaration or you will lose points!
-inclist = undefined
+inclist [] = []
+inclist (x:xs) = (x+1) : xs
 
 --- ### sumlist
 
 -- don't forget to put the type declaration or you will lose points!
-sumlist = undefined
+sumlist [] = 0
+sumlist (x:xs) = x + sumlist xs
 
 --- ### myzip
 
 -- don't forget to put the type declaration or you will lose points!
-myzip = undefined
-
+myzip [] [] = []
+myzip [] _ = []
+myzip _ [] = []
+myzip (x:xs) (y:ys) = (x, y) : myzip xs ys
 --- ### addpairs
 
 -- don't forget to put the type declaration or you will lose points!
-addpairs = undefined
+addpairs xs ys = add (myzip xs ys)
+    where
+        add [] = 0
+        add ((x,y): rest) = (x+y) add rest
 
 --- ### ones
 

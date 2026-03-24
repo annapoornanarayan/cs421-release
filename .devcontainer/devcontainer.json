@@ -2,50 +2,23 @@
   "name": "CS421 Haskell Dev",
   "image": "mattox/cs421-haskell-dev:latest",
 
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/student/workspace,type=bind",
+  "workspaceFolder": "/home/student/workspace",
+
+  "remoteUser": "student",
+
   "customizations": {
     "vscode": {
       "extensions": [
         "haskell.haskell",
         "justusadam.language-haskell"
-      ],
-      "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash",
-        "terminal.integrated.profiles.linux": {
-          "bash": {
-            "path": "/bin/bash",
-            "args": ["-l"]
-          }
-        }
-      }
+      ]
     }
   },
 
-  // Mount workspace and set working directory
-  "workspaceMount": "source=${localWorkspaceFolder},target=/home/student/workspace,type=bind",
-  "workspaceFolder": "/home/student/workspace",
-
-  // Run as the student user (important for PATH and permissions)
-  "remoteUser": "student",
-
-  // Update container user UID to match host user (helps with file permissions on Linux/macOS)
-  "updateRemoteUserUID": true,
-
-  // Named volumes for Haskell tools (persist across container rebuilds)
   "mounts": [
     "source=cs421-ghcup,target=/home/student/.ghcup,type=volume",
     "source=cs421-stack,target=/home/student/.stack,type=volume",
     "source=cs421-cabal,target=/home/student/.cabal,type=volume"
-  ],
-
-  // Fix permissions on mounted workspace after container creation
-  "postCreateCommand": "sudo chown -R student:student /home/student/workspace",
-
-  // Keep container running
-  "overrideCommand": true,
-
-  // Docker run arguments for better network reliability
-  "runArgs": [
-    "--dns=8.8.8.8",
-    "--dns=8.8.4.4"
   ]
 }
